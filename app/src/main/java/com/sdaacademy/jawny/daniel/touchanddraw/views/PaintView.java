@@ -29,6 +29,8 @@ public class PaintView extends View implements View.OnTouchListener {
     private int radius;
     private Paint paintLine;
     private Paint paintBackground;
+    private float currentX;
+    private float currentY;
 
     public PaintView(Context context) {
         super(context);
@@ -64,7 +66,6 @@ public class PaintView extends View implements View.OnTouchListener {
         paintLine.setColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
 
         paintBackground = new Paint();
-        paintBackground.setStrokeWidth(5);
         paintBackground.setColor(Color.WHITE);
     }
 
@@ -72,27 +73,27 @@ public class PaintView extends View implements View.OnTouchListener {
     public boolean onTouch(View v, MotionEvent event) {
         int action = event.getAction();
         int actionIndex = event.getActionIndex();
-        float x = event.getX();
-        float y = event.getY();
-        Log.i(TAG, String.format("x,y = %f%f action= %d actionIndex=%d", x, y, action, actionIndex));
+        currentX = event.getX();
+        currentY = event.getY();
+        Log.i(TAG, String.format("x,y = %f%f action= %d actionIndex=%d", currentX, currentY, action, actionIndex));
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_POINTER_DOWN:
-                startX[actionIndex] = x;
-                startY[actionIndex] = y;
+                startX[actionIndex] = currentX;
+                startY[actionIndex] = currentY;
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
-                endX[actionIndex] = x;
-                endY[actionIndex] = y;
+                endX[actionIndex] = currentX;
+                endY[actionIndex] = currentY;
                 lines.add(new RectF(startX[actionIndex],
                         startY[actionIndex],
                         endX[actionIndex],
                         endY[actionIndex]));
-                invalidate();
                 break;
         }
+        invalidate();
         return true;
     }
 
@@ -104,5 +105,6 @@ public class PaintView extends View implements View.OnTouchListener {
         for (RectF rectF : lines) {
             canvas.drawLine(rectF.left, rectF.top, rectF.right, rectF.bottom, paintLine);
         }
+        canvas.drawCircle(currentX, currentY, radius, paintLine);
     }
 }
