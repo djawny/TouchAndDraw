@@ -11,6 +11,10 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        showAlertDialog();
+    }
+
+    private void showAlertDialog() {
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setMessage("Cześć, jestem AlertDialog")
                 .setCancelable(false)
