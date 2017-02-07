@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setMessage("Cześć, jestem AlertDialog")
                 .setCancelable(false)
-                .setPositiveButton("Super", null)
+                .setPositiveButton("Super",this)
                 .create();
         alertDialog.show();
     }
