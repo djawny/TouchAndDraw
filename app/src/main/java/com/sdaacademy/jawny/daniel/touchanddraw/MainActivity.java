@@ -4,21 +4,32 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements DialogInterface.OnClickListener {
+import com.sdaacademy.jawny.daniel.touchanddraw.dialogs.FirstFragmentDialog;
+
+public class MainActivity extends AppCompatActivity implements DialogInterface.OnClickListener, FirstFragmentDialog.OnDismissListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        showAlertDialog();
+//        showAlertDialog();
+        showDialogFragment();
+    }
+
+    private void showDialogFragment() {
+        FirstFragmentDialog firstFragmentDialog = new FirstFragmentDialog();
+        firstFragmentDialog.setOnDismissListener(this);
+
+        firstFragmentDialog.show(getSupportFragmentManager(), null);
     }
 
     private void showAlertDialog() {
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setMessage("Cześć, jestem AlertDialog")
                 .setCancelable(false)
-                .setPositiveButton("Super",this)
+                .setPositiveButton("Super", this)
                 .create();
         alertDialog.show();
     }
@@ -33,6 +44,13 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
                 break;
             case AlertDialog.BUTTON_NEUTRAL:
                 break;
+        }
+    }
+
+    @Override
+    public void onDismiss() {
+        {
+            Toast.makeText(this, "No i super!", Toast.LENGTH_LONG).show();
         }
     }
 }
