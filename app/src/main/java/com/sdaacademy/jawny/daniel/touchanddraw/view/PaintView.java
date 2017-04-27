@@ -1,4 +1,4 @@
-package com.sdaacademy.jawny.daniel.touchanddraw.views;
+package com.sdaacademy.jawny.daniel.touchanddraw.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
